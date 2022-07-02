@@ -4,12 +4,9 @@ import React from 'react';
   console.log(props);
   return <button type="button">{props.value}</button>;
 };*/
-const Square = ({ value }) => {
-  {
-    /*children for <square></square> */
-  }
+const Square = ({ value, onClick }) => {
   return (
-    <button type="button" className="square">
+    <button type="button" className="square" onClick={onClick}>
       {value}
     </button>
   );
