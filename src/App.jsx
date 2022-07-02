@@ -1,10 +1,10 @@
-import React from "react";
-
+import React from 'react';
+import Board from './components/Board';
 const app = () => (
   <>
     {/*react.fragments or div upr wale arrow me*/}
-    <h1>Welcome to React Vite Micro App!</h1>
-    <p>Hard to get more minimal than this React app.hiii hello</p>
+    <h1>Tictactoe</h1>
+    <Board />
   </>
 );
 export default app;
