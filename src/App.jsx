@@ -7,32 +7,38 @@ import { calculateWinner } from './helpers';
   /* it is global import form any file */
 }
 const App = () => {
-  const [board, setBoard] = useState(Array(9).fill(null));
-  const [isNext, setIsNext] = useState(false);
-  const winner = calculateWinner(board);
+  const [history, setHistory] = useState([
+    { board: Array(9).fill(null), isXNext: true },
+  ]);
+
+  const [currentMove, setCurrentMove] = useState(0);
+  const current = history[currentMove];
+  const winner = calculateWinner(current.board);
   const message = winner
     ? `winner is ${winner}`
-    : `Next player is ${isNext ? 'X' : 'O'}`;
+    : `Next player is ${current.isXNext ? 'X' : 'O'}`;
   const handleSquareClick = position => {
-    if (board[position] || winner) {
+    if (current.board[position] || winner) {
       return;
     }
-    setBoard(prev => {
-      return prev.map((square, pos) => {
+    setHistory(prev => {
+      const last = prev[prev.length - 1];
+      const newBoard = last.board.map((square, pos) => {
         if (position === pos) {
-          return isNext ? 'X' : 'O';
+          return last.isXNext ? 'X' : 'O';
         }
         return square;
       });
+      return prev.concat({ board: newBoard, isXNext: !last.isXNext });
     });
-    setIsNext(prev => !prev);
+    setCurrentMove(prev => prev + 1);
   };
   return (
     <div className="app">
       {/*react.fragments or div upr wale arrow me*/}
       <h1>Tictactoe</h1>
       <h2>{message}</h2>
-      <Board board={board} handleSquareClick={handleSquareClick} />
+      <Board board={current.board} handleSquareClick={handleSquareClick} />
     </div>
   );
 };
