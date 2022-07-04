@@ -7,6 +7,9 @@ import React from 'react';
 
 const Status = ({ winner, current }) => {
   const noMovesLeft = current.board.every(el => el !== null);
+  {
+    /*return boolean value*/
+  }
   return (
     <h2>
       {winner && `winner is ${winner}`}

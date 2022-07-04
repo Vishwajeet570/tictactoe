@@ -7,14 +7,13 @@ import Status from './components/Status';
 {
   /* it is global import form any file */
 }
+const newGame = [{ board: Array(9).fill(null), isXNext: true }];
 const App = () => {
-  const [history, setHistory] = useState([
-    { board: Array(9).fill(null), isXNext: true },
-  ]);
+  const [history, setHistory] = useState(newGame);
 
   const [currentMove, setCurrentMove] = useState(0);
   const current = history[currentMove];
-  const winner = calculateWinner(current.board);
+  const { winner, winningsquares } = calculateWinner(current.board);
 
   const handleSquareClick = position => {
     if (current.board[position] || winner) {
@@ -35,12 +34,23 @@ const App = () => {
   moveTo = move => {
     setCurrentMove(move);
   };
+  const setNewGame = () => {
+    setHistory(newGame);
+    setCurrentMove(0);
+  };
   return (
     <div className="app">
       {/*react.fragments or div upr wale arrow me*/}
       <h1>Tictactoe</h1>
       <Status winner={winner} current={current} />
-      <Board board={current.board} handleSquareClick={handleSquareClick} />
+      <Board
+        board={current.board}
+        handleSquareClick={handleSquareClick}
+        winningsquares={winningsquares}
+      />
+      <button type="button" onClick={setNewGame}>
+        Start New Game
+      </button>
       <History history={history} moveTo={moveTo} currentMove={currentMove} />
     </div>
   );
