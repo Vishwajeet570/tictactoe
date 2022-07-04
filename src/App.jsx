@@ -41,17 +41,25 @@ const App = () => {
   return (
     <div className="app">
       {/*react.fragments or div upr wale arrow me*/}
-      <h1>Tictactoe</h1>
+      <h1>
+        Tic<span className="text-green">Tac</span>Toe
+      </h1>
       <Status winner={winner} current={current} />
       <Board
         board={current.board}
         handleSquareClick={handleSquareClick}
         winningsquares={winningsquares}
       />
-      <button type="button" onClick={setNewGame}>
+      <button
+        type="button"
+        onClick={setNewGame}
+        className={`btn-reset ${winner ? 'active' : ''}`}
+      >
         Start New Game
       </button>
+      <h2 style={{ fontWeight: 'normal' }}>Current Game History</h2>
       <History history={history} moveTo={moveTo} currentMove={currentMove} />
+      <div className="bg-balls" />
     </div>
   );
 };
