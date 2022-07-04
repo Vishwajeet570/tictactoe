@@ -3,6 +3,7 @@ import Board from './components/Board';
 import './components/styles/root.scss';
 import { calculateWinner } from './helpers';
 import History from './components/History';
+import Status from './components/Status';
 {
   /* it is global import form any file */
 }
@@ -14,9 +15,7 @@ const App = () => {
   const [currentMove, setCurrentMove] = useState(0);
   const current = history[currentMove];
   const winner = calculateWinner(current.board);
-  const message = winner
-    ? `winner is ${winner}`
-    : `Next player is ${current.isXNext ? 'X' : 'O'}`;
+
   const handleSquareClick = position => {
     if (current.board[position] || winner) {
       return;
@@ -40,7 +39,7 @@ const App = () => {
     <div className="app">
       {/*react.fragments or div upr wale arrow me*/}
       <h1>Tictactoe</h1>
-      <h2>{message}</h2>
+      <Status winner={winner} current={current} />
       <Board board={current.board} handleSquareClick={handleSquareClick} />
       <History history={history} moveTo={moveTo} currentMove={currentMove} />
     </div>
